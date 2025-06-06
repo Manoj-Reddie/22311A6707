@@ -24,11 +24,11 @@ async function refreshAccessToken() {
       clientSecret: process.env.CLIENT_SECRET,
     });
     accessToken = data.access_token;
-    console.log("✅ Access token refreshed");
+    console.log("Access token refreshed");
     return accessToken;
   } catch (error) {
     console.error(
-      "❌ Failed to refresh token:",
+      "Failed to refresh token:",
       error.response?.data || error.message
     );
     return null;
@@ -51,12 +51,12 @@ async function fetchNumbers(url) {
     return await tryFetch(url);
   } catch (error) {
     if (error.response?.status === 401) {
-      console.warn("⚠️ Access token expired. Refreshing...");
+      console.warn("Access token expired.Refreshing");
       const newToken = await refreshAccessToken();
       if (newToken) return await tryFetch(url);
     }
     console.error(
-      "❌ Error fetching numbers:",
+      "Error fetching numbers:",
       error.response?.data || error.message
     );
     return [];
@@ -101,5 +101,5 @@ app.get("/numbers/:numberid", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
